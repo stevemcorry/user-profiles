@@ -23,14 +23,19 @@ var users = [
 
 module.exports = {
   login: function(req,res,next) {
+    console.log(req.body);
     var results = users.filter(function(value){
       return (value.name === req.body.name && value .password === req.body.password);
     });
     if(results[0]){
+      console.log('works?');
     req.session.currentUser = results[0];
-    res.json(req.session.currentUser);
+    res.json({userFound: true});
 
-  } else{res.json({userFound: false});}
+  } else{
+    console.log(results);
+    res.json({userFound: false});
+  }
 
   }
 };
